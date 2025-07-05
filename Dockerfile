@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Download Godot headless
-RUN wget https://downloads.tuxfamily.org/godotengine/4.4.1/Godot_v4.4.1-stable_linux.x86_64.zip -O godot.zip && \
+RUN wget https://github.com/godotengine/godot-builds/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip -O godot.zip && \
     unzip godot.zip && \
     mv Godot_v4.4.1-stable_linux.x86_64 godot && \
     chmod +x godot && \
