@@ -12,10 +12,10 @@ WORKDIR /app
 
 # Copy both the binary and your start script
 COPY PODO_SERVER.x86_64 /app/PODO_SERVER.x86_64
-COPY PODO_SERVER.shs /app/PODO_SERVER.shs
-RUN chmod +x /app/PODO_SERVER.x86_64 /app/PODO_SERVER.shs
+COPY PODO_SERVER.sh /app/PODO_SERVER.sh
+RUN chmod +x /app/PODO_SERVER.x86_64 /app/PODO_SERVER.sh
 
 EXPOSE 8080
 
 # Use the shell script as the entrypoint
-CMD ["./PODO_SERVER.shs"]
+CMD ["./PODO_SERVER.sh"]
