@@ -1,26 +1,21 @@
-# Base image: use official Godot headless Linux build
-FROM ubuntu:22.04
+FROM debian:bullseye-slim
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
-    wget unzip libxrandr2 libxcursor1 libxi6 libxinerama1 libgl1-mesa-glx libasound2 libpulse0 libssl-dev ca-certificates && \
-    apt-get clean
+    libx11-6 \
+    libxcursor1 \
+    libxrandr2 \
+    libxi6 \
+    libgl1 \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create working directory
 WORKDIR /app
 
-# Download Godot headless
-RUN wget https://github.com/godotengine/godot-builds/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip -O godot.zip && \
-    unzip godot.zip && \
-    mv Godot_v4.4.1-stable_linux.x86_64 godot && \
-    chmod +x godot && \
-    rm godot.zip
+# Copy both the binary and your start script
+COPY PODO_SERVER.x86_64 /app/PODO_SERVER.x86_64
+COPY start.sh /app/start.sh
+RUN chmod +x /app/PODO_SERVER.x86_64 /app/start.sh
 
-# Copy your project files into the container
-COPY . .
+EXPOSE 8080
 
-# Make your start script executable (if needed)
-RUN chmod +x PODO\ SERVER.sh
-
-# Tell Render how to run your server
-CMD ["./godot", "--headless", "--path", ".", "--main-pack", "PODO_SERVER.pck"]
+# Use the shell script as the entrypoint
+CMD ["./start.sh"]
