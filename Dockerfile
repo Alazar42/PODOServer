@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libxi6 \
     libgl1 \
+    libfontconfig1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
