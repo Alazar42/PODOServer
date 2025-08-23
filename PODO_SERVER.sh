@@ -2,6 +2,7 @@
 echo -ne '\033c\033]0;PODO SERVER\a'
 
 base_path="$(dirname "$(realpath "$0")")"
-PORT=${PORT:-8080}   # use Render's $PORT, fallback to 8080 locally
+PORT=${PORT:-8080}   # Render provides $PORT dynamically
 
-"$base_path/PODO_SERVER.x86_64" --port $PORT "$@"
+# Run Godot headless dedicated server, bind to all interfaces
+"$base_path/PODO_SERVER.x86_64" --headless --server --port $PORT --bind 0.0.0.0 "$@"
